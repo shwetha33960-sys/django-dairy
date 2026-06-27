@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffdce8 0%, #f9c7d8 45%, #f7a8c2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .home-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(138, 47, 87, 0.2);
+            padding: 32px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #8a2f57;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            color: #7a3553;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #7d5064;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 8px 18px rgba(240, 75, 125, 0.22);
+            transition: transform 0.2s ease;
+        }
+
+        a:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="home-card">
+        <div class="brand">Dairy</div>
+        <h2>Welcome, {{ user.username }}!</h2>
+        <p>You are logged in.</p>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</body>
+</html>
