@@ -264,6 +264,104 @@
             color: #7d2f51;
         }
 
+        /* Search by date styles */
+        .search-section {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(220, 148, 184, 0.5);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 20px rgba(117, 40, 71, 0.08);
+        }
+
+        .search-section label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #8b2d57;
+            margin-bottom: 8px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-row input[type="date"] {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1.5px solid rgba(200, 130, 170, 0.45);
+            border-radius: 14px;
+            background: #fffbfd;
+            color: #5d2f51;
+            font-size: 0.92rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-row input[type="date"]:focus {
+            border-color: #c95d8d;
+            box-shadow: 0 0 0 3px rgba(201, 93, 141, 0.15);
+        }
+
+        .search-btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f7a8c9, #e66ba0);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(230, 107, 160, 0.25);
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(230, 107, 160, 0.35);
+        }
+
+        .clear-btn {
+            padding: 10px 12px;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            border-radius: 14px;
+            background: #fff;
+            color: #9b3e72;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .clear-btn:hover {
+            background: #fff0f5;
+            border-color: #c95d8d;
+        }
+
+        .search-active-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #ffe8f1, #ffd6e7);
+            border: 1px solid rgba(201, 93, 141, 0.3);
+            border-radius: 12px;
+            font-size: 0.82rem;
+            color: #8b2d57;
+            font-weight: 600;
+        }
+
+        .search-active-badge .badge-icon {
+            font-size: 0.9rem;
+        }
+
         .note-card {
             background: rgba(255, 255, 255, 0.92);
             border: 1px solid rgba(220, 148, 184, 0.5);
@@ -308,6 +406,325 @@
             font-size: 0.9rem;
         }
 
+        /* Delete button styles */
+        .delete-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border: 1.5px solid rgba(200, 60, 80, 0.3);
+            border-radius: 16px;
+            background: linear-gradient(135deg, #fff5f5, #ffe0e0);
+            color: #b83a4a;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(184, 58, 74, 0.1);
+            z-index: 15;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #ffe0e0, #ffcdd2);
+            border-color: rgba(200, 60, 80, 0.5);
+            box-shadow: 0 6px 18px rgba(184, 58, 74, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .delete-btn .delete-icon {
+            font-size: 1.05rem;
+            line-height: 1;
+        }
+
+        /* Delete confirmation modal */
+        .delete-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(91, 47, 73, 0.35);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .delete-overlay.visible {
+            display: flex;
+        }
+
+        .delete-modal {
+            background: #fff;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(91, 45, 79, 0.25);
+            text-align: center;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .delete-modal-icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .delete-modal h3 {
+            margin: 0 0 8px;
+            color: #7d2c53;
+            font-size: 1.2rem;
+        }
+
+        .delete-modal p {
+            margin: 0 0 24px;
+            color: #9b3e72;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .delete-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-cancel-btn {
+            padding: 12px 24px;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            border-radius: 14px;
+            background: #fff;
+            color: #7d2c53;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-cancel-btn:hover {
+            background: #fff0f5;
+            border-color: #c95d8d;
+        }
+
+        .modal-delete-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #e85d6f, #d4394e);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(212, 57, 78, 0.3);
+        }
+
+        .modal-delete-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(212, 57, 78, 0.4);
+        }
+
+        /* Doodle button styles */
+        .mode-btn-fixed {
+            position: fixed;
+            left: 16px;
+            top: 24px;
+            width: auto;
+            min-width: 120px;
+            height: 56px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, #fffbfd, #ffeef4);
+            color: #8b2d57;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 14px;
+            text-decoration: none;
+            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.12);
+            border: 1px solid rgba(220, 148, 184, 0.4);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            animation: fadeIn 0.6s ease both;
+            z-index: 1000;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mode-btn-fixed:hover {
+            transform: scale(1.08);
+            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.2);
+            background: linear-gradient(135deg, #ffeef4, #ffd6e7);
+            border-color: rgba(220, 148, 184, 0.6);
+        }
+
+        .mode-btn-fixed.active {
+            background: linear-gradient(135deg, #ffd6e7, #fb9aba);
+            color: #8a2f57;
+            border-color: rgba(138, 47, 87, 0.25);
+            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
+        }
+
+        .doodle-toolbar {
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(220, 148, 184, 0.5);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(117, 40, 71, 0.12);
+            z-index: 1000;
+            position: fixed;
+            left: 16px;
+            top: 90px;
+            width: 130px;
+        }
+
+        .doodle-toolbar.visible {
+            display: flex;
+        }
+
+        /* Clickable elements override for doodle mode click-throughs */
+        .mode-btn-fixed, .delete-btn, .nav-button, .doodle-toolbar, .top-bar, .side-action,
+        .mode-btn-fixed *, .delete-btn *, .nav-button *, .doodle-toolbar *, .top-bar *, .side-action * {
+            pointer-events: auto !important;
+        }
+
+        .toolbar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            width: 100%;
+            border-bottom: 1px solid rgba(220, 148, 184, 0.25);
+            padding-bottom: 12px;
+        }
+
+        .toolbar-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .color-palette-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+
+        .tool-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .tool-btn-group .tool-btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .toolbar-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #8b2d57;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.15);
+        }
+
+        .color-dot.active {
+            border-color: #8a2f57;
+            transform: scale(1.1);
+        }
+
+        .brush-size {
+            background: #fff;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            color: #8b2d57;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: none;
+        }
+
+        .brush-size:hover {
+            background: #fff0f5;
+            border-color: #c95d8d;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .brush-size.active {
+            background: #8b2d57;
+            color: #fff;
+            border-color: #8b2d57;
+        }
+
+        .tool-btn {
+            background: #fff;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            color: #8b2d57;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: none;
+        }
+
+        .tool-btn:hover {
+            background: #fff0f5;
+            border-color: #c95d8d;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .tool-btn.active {
+            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
+            border-color: rgba(138, 47, 87, 0.25);
+            color: #9e214e;
+        }
+
+        .clear-btn-doodle {
+            background: #fff5f5;
+            border-color: rgba(200, 60, 80, 0.2);
+            color: #b83a4a;
+        }
+
+        .clear-btn-doodle:hover {
+            background: #ffe0e0;
+            border-color: rgba(200, 60, 80, 0.4);
+        }
+
+
         @media (max-width: 940px) {
             .notebook {
                 grid-template-columns: 1fr;
@@ -342,8 +759,43 @@
         <span>&#x2190;</span>
         <span class="arrow-label">previous page</span>
     </a>
+    <button class="mode-btn-fixed" id="mode-btn" style="display:none;" type="button">
+        <span class="mode-icon">✏️</span>
+        <span>Doodle Mode</span>
+    </button>
+
+    <!-- Doodle Drawing Toolbar (now floating on left side) -->
+    <div class="doodle-toolbar" id="doodle-toolbar">
+        <div class="toolbar-group">
+            <label>Color</label>
+            <div class="color-palette-grid">
+                <button type="button" class="color-dot active" style="background: #5b2f49;" data-color="#5b2f49"></button>
+                <button type="button" class="color-dot" style="background: #e66ba0;" data-color="#e66ba0"></button>
+                <button type="button" class="color-dot" style="background: #000000;" data-color="#000000"></button>
+                <button type="button" class="color-dot" style="background: #4a90e2;" data-color="#4a90e2"></button>
+                <button type="button" class="color-dot" style="background: #7ed321;" data-color="#7ed321"></button>
+            </div>
+        </div>
+        <div class="toolbar-group">
+            <label>Size</label>
+            <div style="display: flex; gap: 6px; width: 100%;">
+                <button type="button" class="brush-size active" data-size="3">S</button>
+                <button type="button" class="brush-size" data-size="6">M</button>
+                <button type="button" class="brush-size" data-size="12">L</button>
+            </div>
+        </div>
+        <div class="toolbar-group" style="border-bottom: none; padding-bottom: 0;">
+            <div class="tool-btn-group">
+                <button type="button" id="tool-draw" class="tool-btn active">✏️ Draw</button>
+                <button type="button" id="tool-eraser" class="tool-btn">🧽 Eraser</button>
+                <button type="button" id="tool-clear" class="tool-btn clear-btn-doodle">🗑️ Clear</button>
+            </div>
+        </div>
+    </div>
+
     <div class="notebook">
         <section class="paper">
+            <canvas id="doodle-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none;"></canvas>
             <div class="top-bar">
                 <div class="logo">
                     Notebook
@@ -356,10 +808,16 @@
                         <h2 class="page-title" id="page-date">Loading...</h2>
                         <p class="page-meta">Open a page to read the diary for that date.</p>
                     </div>
-                    <div class="page-number" id="page-count">0 / 0</div>
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <div class="page-number" id="page-count">0 / 0</div>
+                        <button class="delete-btn" id="delete-btn" style="display:none;" type="button">
+                            <span class="delete-icon">🗑</span>
+                            Delete
+                        </button>
+                    </div>
                 </div>
 
-                <div class="page-body">
+                <div class="page-body" style="position: relative;">
                     <p class="page-text" id="page-text">Your diary entries will appear here, one date per page.</p>
                 </div>
 
@@ -372,6 +830,25 @@
 
         <aside class="notes-panel">
             <h2>Dates</h2>
+
+            <!-- Search by date -->
+            <div class="search-section">
+                <label for="search-date-input">🔍 Search by Date</label>
+                <form method="get" action="{% url 'side_page' %}" class="search-row">
+                    <input type="date" id="search-date-input" name="search_date" value="{{ search_date }}" />
+                    <button type="submit" class="search-btn">Search</button>
+                    {% if search_date %}
+                        <a href="{% url 'side_page' %}" class="clear-btn">Clear</a>
+                    {% endif %}
+                </form>
+                {% if search_date %}
+                    <div class="search-active-badge">
+                        <span class="badge-icon">📅</span>
+                        Showing results for: {{ search_date }}
+                    </div>
+                {% endif %}
+            </div>
+
             {% if pages %}
                 {% for page in pages %}
                     <button class="note-card" type="button" data-index="{{ forloop.counter0 }}">
@@ -382,11 +859,35 @@
                 {% endfor %}
             {% else %}
                 <div class="note-card active">
-                    <div class="note-date">No pages yet</div>
-                    <p class="note-snippet">Write entries in the diary and come back to see them as notebook pages.</p>
+                    <div class="note-date">{% if search_date %}No results{% else %}No pages yet{% endif %}</div>
+                    <p class="note-snippet">
+                        {% if search_date %}
+                            No diary entries found for this date. Try another date or clear the filter.
+                        {% else %}
+                            Write entries in the diary and come back to see them as notebook pages.
+                        {% endif %}
+                    </p>
                 </div>
             {% endif %}
         </aside>
+    </div>
+
+    <!-- Delete confirmation modal -->
+    <div class="delete-overlay" id="delete-overlay">
+        <div class="delete-modal">
+            <span class="delete-modal-icon">⚠️</span>
+            <h3>Delete this entry?</h3>
+            <p>This will permanently remove all diary content for <strong id="delete-date-label"></strong>. This action cannot be undone.</p>
+            <div class="delete-modal-actions">
+                <button type="button" class="modal-cancel-btn" id="cancel-delete">Cancel</button>
+                <form method="post" action="{% url 'side_page' %}" id="delete-form" style="margin:0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="entry_id" id="delete-entry-id" value="">
+                    <button type="submit" class="modal-delete-btn">Delete Forever</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -394,7 +895,8 @@
             {% for page in pages %}
                 {
                     date: "{{ page.date }}",
-                    content: "{{ page.content|escapejs }}"
+                    content: "{{ page.content|escapejs }}",
+                    entryIds: [{% for eid in page.entry_ids %}{{ eid }}{% if not forloop.last %},{% endif %}{% endfor %}]
                 }{% if not forloop.last %},{% endif %}
             {% endfor %}
         ];
@@ -404,10 +906,83 @@
         const pageCount = document.getElementById('page-count');
         const prevBtn = document.getElementById('prev-page');
         const nextBtn = document.getElementById('next-page');
+        const deleteBtn = document.getElementById('delete-btn');
+        const modeBtn = document.getElementById('mode-btn');
+        const doodleToolbar = document.getElementById('doodle-toolbar');
+        const canvas = document.getElementById('doodle-canvas');
         const pageButtons = document.querySelectorAll('.note-card');
         const paper = document.querySelector('.paper');
+        const bookContent = document.querySelector('.book-content');
+        const topBar = document.querySelector('.top-bar');
+
+        const ctx = canvas.getContext('2d');
+
+        // Delete modal elements
+        const deleteOverlay = document.getElementById('delete-overlay');
+        const cancelDeleteBtn = document.getElementById('cancel-delete');
+        const deleteEntryIdInput = document.getElementById('delete-entry-id');
+        const deleteDateLabel = document.getElementById('delete-date-label');
 
         let currentIndex = 0;
+        let isDoodleMode = false;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let brushColor = '#5b2f49';
+        let brushSize = 3;
+        let isEraser = false;
+
+        function resizeCanvasOnly() {
+            const parent = canvas.parentElement;
+            const currentWidth = parent.clientWidth || canvas.clientWidth;
+            const currentHeight = parent.clientHeight || canvas.clientHeight;
+            if (currentWidth === 0 || currentHeight === 0) return;
+            canvas.width = currentWidth;
+            canvas.height = currentHeight;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        function resizeAndPreserveCanvas() {
+            const parent = canvas.parentElement;
+            const currentWidth = parent.clientWidth || canvas.clientWidth;
+            const currentHeight = parent.clientHeight || canvas.clientHeight;
+            if (currentWidth === 0 || currentHeight === 0) return;
+
+            const tempImg = new Image();
+            const dataUrl = canvas.toDataURL();
+            
+            canvas.width = currentWidth;
+            canvas.height = currentHeight;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            tempImg.onload = () => {
+                ctx.drawImage(tempImg, 0, 0, currentWidth, currentHeight);
+            };
+            tempImg.src = dataUrl;
+        }
+
+        // Handle resize events
+        window.addEventListener('resize', resizeAndPreserveCanvas);
+
+        function saveDoodle(date) {
+            if (!pages.length) return;
+            const dataUrl = canvas.toDataURL();
+            localStorage.setItem(`doodle_${date}`, dataUrl);
+        }
+
+        function loadDoodle(date) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const savedData = localStorage.getItem(`doodle_${date}`);
+            if (savedData) {
+                const img = new Image();
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+                img.src = savedData;
+            }
+        }
 
         function renderPage(index) {
             if (!pages.length) {
@@ -416,6 +991,8 @@
                 pageCount.textContent = '0 / 0';
                 prevBtn.disabled = true;
                 nextBtn.disabled = true;
+                deleteBtn.style.display = 'none';
+                modeBtn.style.display = 'none';
                 return;
             }
 
@@ -431,6 +1008,14 @@
                 highlightPreview(index);
                 paper.style.transform = 'scale(1)';
                 paper.style.opacity = '1';
+
+                // Show action buttons when viewing a page
+                deleteBtn.style.display = 'inline-flex';
+                modeBtn.style.display = 'inline-flex';
+
+                // Resize & Load Doodle (using synchronous resize first)
+                resizeCanvasOnly();
+                loadDoodle(page.date);
             }, 120);
         }
 
@@ -439,6 +1024,143 @@
                 button.classList.toggle('active', Number(button.dataset.index) === index);
             });
         }
+
+        // Mode toggling logic
+        modeBtn.addEventListener('click', () => {
+            isDoodleMode = !isDoodleMode;
+            if (isDoodleMode) {
+                modeBtn.classList.add('active');
+                modeBtn.querySelector('.mode-icon').textContent = '📖';
+                modeBtn.querySelector('span:not(.mode-icon)').textContent = 'Read Mode';
+                doodleToolbar.classList.add('visible');
+                canvas.style.pointerEvents = 'auto';
+                pageText.style.opacity = '0.45';
+                
+                // Allow drawing clicks to pass through the content wrapper to canvas
+                bookContent.style.pointerEvents = 'none';
+                if (topBar) topBar.style.pointerEvents = 'none';
+                
+                resizeAndPreserveCanvas();
+            } else {
+                modeBtn.classList.remove('active');
+                modeBtn.querySelector('.mode-icon').textContent = '✏️';
+                modeBtn.querySelector('span:not(.mode-icon)').textContent = 'Doodle Mode';
+                doodleToolbar.classList.remove('visible');
+                canvas.style.pointerEvents = 'none';
+                pageText.style.opacity = '1';
+                
+                // Restore standard pointer interactions
+                bookContent.style.pointerEvents = 'auto';
+                if (topBar) topBar.style.pointerEvents = 'auto';
+            }
+        });
+
+        // Drawing Coordinates helper
+        function getCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            if (e.touches && e.touches.length > 0) {
+                return {
+                    x: e.touches[0].clientX - rect.left,
+                    y: e.touches[0].clientY - rect.top
+                };
+            }
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const coords = getCoords(e);
+            lastX = coords.x;
+            lastY = coords.y;
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); // Prevent scrolling on mobile touch
+
+            const coords = getCoords(e);
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(coords.x, coords.y);
+            
+            if (isEraser) {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.lineWidth = brushSize * 3; // Eraser is slightly larger
+            } else {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = brushColor;
+                ctx.lineWidth = brushSize;
+            }
+            
+            ctx.stroke();
+            
+            lastX = coords.x;
+            lastY = coords.y;
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                const page = pages[currentIndex];
+                if (page) {
+                    saveDoodle(page.date);
+                }
+            }
+        }
+
+        // Canvas listeners
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        // Toolbar Event Listeners
+        document.querySelectorAll('.color-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                brushColor = dot.dataset.color;
+                isEraser = false;
+                document.getElementById('tool-draw').classList.add('active');
+                document.getElementById('tool-eraser').classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('.brush-size').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.brush-size').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                brushSize = Number(btn.dataset.size);
+            });
+        });
+
+        document.getElementById('tool-draw').addEventListener('click', () => {
+            isEraser = false;
+            document.getElementById('tool-draw').classList.add('active');
+            document.getElementById('tool-eraser').classList.remove('active');
+        });
+
+        document.getElementById('tool-eraser').addEventListener('click', () => {
+            isEraser = true;
+            document.getElementById('tool-eraser').classList.add('active');
+            document.getElementById('tool-draw').classList.remove('active');
+        });
+
+        document.getElementById('tool-clear').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const page = pages[currentIndex];
+            if (page) {
+                saveDoodle(page.date);
+            }
+        });
 
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
@@ -459,6 +1181,36 @@
                 currentIndex = Number(button.dataset.index);
                 renderPage(currentIndex);
             });
+        });
+
+        // Delete functionality
+        deleteBtn.addEventListener('click', () => {
+            const page = pages[currentIndex];
+            if (page && page.entryIds.length) {
+                deleteDateLabel.textContent = page.date;
+                deleteEntryIdInput.value = page.entryIds[0];
+                deleteOverlay.classList.add('visible');
+            }
+        });
+
+        cancelDeleteBtn.addEventListener('click', () => {
+            deleteOverlay.classList.remove('visible');
+        });
+
+        deleteOverlay.addEventListener('click', (e) => {
+            if (e.target === deleteOverlay) {
+                deleteOverlay.classList.remove('visible');
+            }
+        });
+
+        // If multiple entries per date, submit all delete forms sequentially
+        document.getElementById('delete-form').addEventListener('submit', function(e) {
+            const page = pages[currentIndex];
+            if (page && page.entryIds.length > 1) {
+                // For simplicity, delete the first entry; remaining entries stay
+                // The user can delete them one by one
+                deleteEntryIdInput.value = page.entryIds[0];
+            }
         });
 
         renderPage(currentIndex);

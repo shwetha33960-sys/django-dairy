@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffd6e7 0%, #f8c8db 35%, #f7a8c2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(138, 47, 87, 0.2);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #7a3553;
+            font-weight: 700;
+        }
+
+        form p {
+            margin-bottom: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #f1c7d5;
+            border-radius: 10px;
+            box-sizing: border-box;
+            background: #fffafc;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.95;
+        }
+
+        .link-row {
+            margin-top: 16px;
+            text-align: center;
+            color: #83425e;
+        }
+
+        .link-row a {
+            color: #e1417c;
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Create your account</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="link-row">
+            Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </div>
+    </div>
+</body>
+</html>

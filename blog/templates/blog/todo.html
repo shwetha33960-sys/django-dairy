@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top left, #ffe3f0 0%, #f8dee9 32%, #f5d2e1 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 24px;
+            color: #5b2f49;
+        }
+
+        /* Back button */
+        .side-action {
+            position: fixed;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            min-width: 120px;
+            height: 56px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
+            color: #9e214e;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 14px;
+            text-decoration: none;
+            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            animation: fadeIn 0.6s ease both;
+            z-index: 1000;
+            font-weight: 700;
+        }
+
+        .side-action:hover {
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
+            background: linear-gradient(135deg, #ffd2de, #ff9ec1);
+        }
+
+        .side-action span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .side-action span:first-child {
+            font-size: 1.6rem;
+        }
+
+        .side-action .arrow-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .todo-container {
+            width: min(620px, 100%);
+            margin-top: 20px;
+        }
+
+        /* Header */
+        .todo-header {
+            background: linear-gradient(135deg, #fffafc, #fff0f5);
+            border: 1px solid rgba(220, 148, 184, 0.4);
+            border-radius: 24px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 16px 36px rgba(117, 40, 71, 0.1);
+            text-align: center;
+        }
+
+        .todo-header h1 {
+            margin: 0 0 6px;
+            font-size: 1.8rem;
+            color: #7d2c53;
+            font-weight: 800;
+        }
+
+        .todo-header p {
+            margin: 0;
+            color: #9b3e72;
+            font-size: 0.95rem;
+        }
+
+        /* Progress bar */
+        .progress-section {
+            margin-top: 18px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: #8b2d57;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .progress-count {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: #a43b73;
+        }
+
+        .progress-track {
+            height: 10px;
+            background: rgba(220, 148, 184, 0.25);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f7a8c9, #e66ba0, #d4477e);
+            border-radius: 99px;
+            transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            min-width: 0;
+        }
+
+        /* Add form */
+        .add-form {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(220, 148, 184, 0.5);
+            border-radius: 20px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 10px 24px rgba(117, 40, 71, 0.08);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .add-form input[type="text"] {
+            flex: 1;
+            padding: 13px 16px;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            border-radius: 14px;
+            background: #fffbfd;
+            color: #5d2f51;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .add-form input[type="text"]::placeholder {
+            color: #c49aaf;
+        }
+
+        .add-form input[type="text"]:focus {
+            border-color: #c95d8d;
+            box-shadow: 0 0 0 3px rgba(201, 93, 141, 0.15);
+        }
+
+        .add-btn {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f7a8c9, #e66ba0);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 16px rgba(230, 107, 160, 0.25);
+            white-space: nowrap;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(230, 107, 160, 0.35);
+        }
+
+        /* Todo list */
+        .todo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(220, 148, 184, 0.4);
+            border-radius: 18px;
+            padding: 16px 20px;
+            box-shadow: 0 8px 20px rgba(117, 40, 71, 0.06);
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            animation: itemSlideIn 0.35s ease both;
+        }
+
+        @keyframes itemSlideIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .todo-item:hover {
+            transform: translateX(4px);
+            border-color: #c95d8d;
+            background: #fff5f9;
+        }
+
+        .todo-item.completed {
+            background: rgba(245, 240, 242, 0.85);
+            border-color: rgba(200, 180, 190, 0.35);
+        }
+
+        .todo-item.completed .todo-title {
+            text-decoration: line-through;
+            color: #b09aa5;
+        }
+
+        /* Custom checkbox */
+        .todo-check {
+            flex-shrink: 0;
+        }
+
+        .todo-check button {
+            width: 28px;
+            height: 28px;
+            border-radius: 10px;
+            border: 2px solid rgba(200, 130, 170, 0.5);
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            box-shadow: none;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            color: transparent;
+        }
+
+        .todo-check button:hover {
+            border-color: #c95d8d;
+            background: #fff0f5;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .todo-item.completed .todo-check button {
+            background: linear-gradient(135deg, #f7a8c9, #e66ba0);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .todo-title {
+            flex: 1;
+            font-size: 1rem;
+            color: #5d2f51;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        /* Delete button */
+        .todo-delete button {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            border: 1.5px solid rgba(200, 100, 120, 0.2);
+            background: rgba(255, 240, 240, 0.6);
+            color: #c07080;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: none;
+            opacity: 0;
+        }
+
+        .todo-item:hover .todo-delete button {
+            opacity: 1;
+        }
+
+        .todo-delete button:hover {
+            background: #ffe0e0;
+            border-color: rgba(200, 60, 80, 0.4);
+            color: #b83a4a;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px dashed rgba(220, 148, 184, 0.4);
+            border-radius: 24px;
+            color: #9b3e72;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.7;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 6px;
+            color: #7d2c53;
+            font-size: 1.15rem;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #a86a85;
+        }
+
+        /* Filter tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 14px;
+            padding: 5px;
+            border: 1px solid rgba(220, 148, 184, 0.3);
+        }
+
+        .filter-tab {
+            flex: 1;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: #9b3e72;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .filter-tab:hover {
+            background: rgba(255, 240, 245, 0.8);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .filter-tab.active {
+            background: #fff;
+            color: #7d2c53;
+            box-shadow: 0 4px 12px rgba(117, 40, 71, 0.08);
+            transform: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            .todo-header {
+                padding: 20px;
+            }
+
+            .add-form {
+                flex-direction: column;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            .todo-delete button {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="side-action">
+        <span>&#x2190;</span>
+        <span class="arrow-label">Back to diary</span>
+    </a>
+
+    <div class="todo-container">
+        <!-- Header -->
+        <div class="todo-header">
+            <h1>📝 To-Do List</h1>
+            <p>Stay organized — check off tasks as you go.</p>
+
+            {% if total > 0 %}
+            <div class="progress-section">
+                <div class="progress-info">
+                    <span class="progress-label">Progress</span>
+                    <span class="progress-count">{{ done }} / {{ total }} done</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: {% widthratio done total 100 %}%;"></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Add new todo -->
+        <form method="post" action="{% url 'todo_page' %}" class="add-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add">
+            <input type="text" name="title" placeholder="What do you need to do?" autocomplete="off" required>
+            <button type="submit" class="add-btn">+ Add</button>
+        </form>
+
+        <!-- Filter tabs -->
+        {% if total > 0 %}
+        <div class="filter-tabs">
+            <button type="button" class="filter-tab active" data-filter="all">All ({{ total }})</button>
+            <button type="button" class="filter-tab" data-filter="active">Active ({{ active }})</button>
+            <button type="button" class="filter-tab" data-filter="completed">Done ({{ done }})</button>
+        </div>
+        {% endif %}
+
+        <!-- Todo items -->
+        <div class="todo-list" id="todo-list">
+            {% if todos %}
+                {% for item in todos %}
+                <div class="todo-item {% if item.completed %}completed{% endif %}" data-status="{% if item.completed %}completed{% else %}active{% endif %}" style="animation-delay: {{ forloop.counter0 }}00ms;">
+                    <div class="todo-check">
+                        <form method="post" action="{% url 'todo_page' %}" style="margin:0;">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="toggle">
+                            <input type="hidden" name="item_id" value="{{ item.pk }}">
+                            <button type="submit" title="Toggle complete">{% if item.completed %}✓{% endif %}</button>
+                        </form>
+                    </div>
+                    <span class="todo-title">{{ item.title }}</span>
+                    <div class="todo-delete">
+                        <form method="post" action="{% url 'todo_page' %}" style="margin:0;">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="item_id" value="{{ item.pk }}">
+                            <button type="submit" title="Delete task">✕</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <span class="empty-icon">✨</span>
+                    <h3>All clear!</h3>
+                    <p>Add your first task above to get started.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Client-side filtering
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const todoItems = document.querySelectorAll('.todo-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+                todoItems.forEach(item => {
+                    if (filter === 'all') {
+                        item.classList.remove('hidden');
+                    } else if (filter === 'active') {
+                        item.classList.toggle('hidden', item.dataset.status !== 'active');
+                    } else if (filter === 'completed') {
+                        item.classList.toggle('hidden', item.dataset.status !== 'completed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -26,13 +26,14 @@ SECRET_KEY = 'django-insecure-68vp0oi-y58!s@s!gyzr&^%tnx+09t9slqp8kyg$j#%2irnpf4
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'django-dairy-1.onrender.com',
+    "127.0.0.1",
+    "localhost",
+    ".ngrok-free.dev",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://django-dairy-1.onrender.com',
+    'https://ambush-lushness-viper.ngrok-free.dev',
 ]
 
 # Application definition

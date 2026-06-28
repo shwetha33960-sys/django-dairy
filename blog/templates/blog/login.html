@@ -116,9 +116,13 @@
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
             {{ form.as_p }}
             <button type="submit">Log In</button>
         </form>
+        <p style="margin-top: 16px; font-size: 0.95rem; text-align: center; color: #83425e;">
+            Don't have an account? <a href="{% url 'signup' %}" style="color: #e1417c; text-decoration: none; font-weight: 700;">Sign up</a>
+        </p>
     </div>
 </body>
 </html>

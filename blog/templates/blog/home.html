@@ -66,11 +66,30 @@
             text-decoration: none;
             font-weight: 600;
         }
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-left: 18px;
+        }
+
+        .nav-links a {
+            color: #8a2f57;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(240, 75, 125, 0.06);
+            color: #f04b7d;
+        }
 
         .hero {
-            display: grid;
+            display: block;
             gap: 18px;
-            grid-template-columns: 1.3fr 0.9fr;
             margin-bottom: 24px;
         }
 
@@ -97,7 +116,44 @@
         .grid {
             display: grid;
             gap: 20px;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: 1fr;
+        }
+
+        .dashboard {
+            max-width: 1000px;
+            margin: 0 auto 18px;
+            background: linear-gradient(135deg, #fffafc, #ffeef4);
+            border-bottom: 1px solid #f3d4e0;
+            padding: 14px 32px;
+            box-shadow: 0 6px 18px rgba(138, 47, 87, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 24px;
+        }
+
+        .dashboard .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard .right a {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(240, 75, 125, 0.15);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+        }
+
+        .dashboard .right a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(240, 75, 125, 0.18);
+            opacity: 0.98;
         }
 
         .panel h2 {
@@ -142,7 +198,7 @@
         }
 
         textarea {
-            min-height: 220px;
+            min-height: 360px;
             resize: vertical;
         }
 
@@ -199,6 +255,7 @@
             margin: 8px 0 0;
             font-family: inherit;
         }
+    
 
         .arrow-link {
             position: fixed;
@@ -286,37 +343,26 @@
     </style>
 </head>
 <body>
-    <div class="page-shell">
-        <div class="top-bar">
+    <div class="dashboard">
+        <div class="left">
             <div class="brand">
                 <div class="brand-mark">D</div>
                 <span>My Diary</span>
             </div>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="#write">Write diary</a>
+                <a href="{% url 'side_page' %}">View diary</a>
+                <a href="{% url 'todo_page' %}">To-Do List</a>
+            </nav>
+        </div>
+        <div class="right">
             <a href="{% url 'logout' %}">Logout</a>
         </div>
+    </div>
 
-        <div class="hero">
-            <div class="hero-card">
-                <h1>Welcome back, {{ user.username }}</h1>
-                <p>Capture your thoughts, save special moments, and revisit earlier entries whenever you want.</p>
-            </div>
-            <div class="panel">
-                <h2>Find an entry</h2>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="field">
-                        <label for="search_date">Search by date</label>
-                        <input type="date" id="search_date" name="search_date" value="{{ selected_date|default:'' }}">
-                    </div>
-                    <div class="actions-row">
-                        <button type="submit" name="action" value="search">Search</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
+    <div class="page-shell">
         <div class="grid">
-            <div class="panel">
+            <div class="panel" id="write">
                 <h2>Write a new page</h2>
                 {% if error %}
                     <div class="alert">{{ error }}</div>
@@ -341,22 +387,6 @@
                         {% endif %}
                     </div>
                 </form>
-            </div>
-
-            <div class="panel">
-                <h2>Saved entries</h2>
-                {% if selected_date and pages %}
-                    <ul class="entry-list">
-                        {% for page in pages %}
-                            <li>
-                                <strong>{{ page.written_date }}</strong>
-                                <pre>{{ page.page }}</pre>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>Choose a date to view your saved entries.</p>
-                {% endif %}
             </div>
         </div>
     </div>
