@@ -115,7 +115,8 @@
         }
 
         .todo-container {
-            width: min(620px, 100%);
+            width: 100%;
+            max-width: 1000px;
             margin-top: 20px;
         }
 
@@ -428,6 +429,45 @@
         @media (max-width: 640px) {
             body {
                 padding: 16px;
+            }
+
+            .dashboard {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .dashboard .left {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .nav-links {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+            .dashboard .right {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .dashboard .right a {
+                width: 100%;
+                text-align: center;
             }
 
             .todo-header {
