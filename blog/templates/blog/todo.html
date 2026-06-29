@@ -19,64 +19,99 @@
             min-height: 100vh;
             background: radial-gradient(circle at top left, #ffe3f0 0%, #f8dee9 32%, #f5d2e1 100%);
             display: flex;
-            align-items: flex-start;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
             padding: 24px;
             color: #5b2f49;
         }
 
-        /* Back button */
-        .side-action {
-            position: fixed;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: auto;
-            min-width: 120px;
-            height: 56px;
-            border-radius: 32px;
-            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
-            color: #9e214e;
-            display: inline-flex;
+        /* Dashboard */
+        .dashboard {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto 18px;
+            background: linear-gradient(135deg, #fffafc, #ffeef4);
+            border-bottom: 1px solid #f3d4e0;
+            padding: 14px 32px;
+            box-shadow: 0 6px 18px rgba(138, 47, 87, 0.06);
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 0 14px;
+            justify-content: space-between;
+            border-radius: 24px;
+        }
+
+        .dashboard .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard .right a {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 12px;
             text-decoration: none;
-            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.65);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            animation: fadeIn 0.6s ease both;
-            z-index: 1000;
             font-weight: 700;
+            box-shadow: 0 8px 18px rgba(240, 75, 125, 0.15);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
         }
 
-        .side-action:hover {
-            transform: translateY(-50%) scale(1.08);
-            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
-            background: linear-gradient(135deg, #ffd2de, #ff9ec1);
+        .dashboard .right a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(240, 75, 125, 0.18);
+            opacity: 0.98;
         }
 
-        .side-action span {
-            display: inline-flex;
+        .brand {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .side-action span:first-child {
-            font-size: 1.6rem;
-        }
-
-        .side-action .arrow-label {
-            font-size: 0.95rem;
+            gap: 10px;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 0.02em;
+            color: #8a2f57;
+            text-decoration: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            box-shadow: 0 6px 16px rgba(240, 75, 125, 0.25);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-left: 18px;
+        }
+
+        .nav-links a {
+            color: #8a2f57;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(240, 75, 125, 0.06);
+            color: #f04b7d;
+        }
+
+        .nav-links a.active {
+            background: rgba(240, 75, 125, 0.1);
+            color: #f04b7d;
         }
 
         .todo-container {
@@ -414,10 +449,22 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}" class="side-action">
-        <span>&#x2190;</span>
-        <span class="arrow-label">Back to diary</span>
-    </a>
+    <div class="dashboard">
+        <div class="left">
+            <a href="{% url 'home' %}" class="brand">
+                <div class="brand-mark">D</div>
+                <span>My Diary</span>
+            </a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="{% url 'home' %}#write" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Write diary</a>
+                <a href="{% url 'side_page' %}" class="{% if request.resolver_match.url_name == 'side_page' %}active{% endif %}">View diary</a>
+                <a href="{% url 'todo_page' %}" class="{% if request.resolver_match.url_name == 'todo_page' %}active{% endif %}">To-Do List</a>
+            </nav>
+        </div>
+        <div class="right">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
 
     <div class="todo-container">
         <!-- Header -->

@@ -19,10 +19,99 @@
             min-height: 100vh;
             background: radial-gradient(circle at top left, #ffe3f0 0%, #f8dee9 32%, #f5d2e1 100%);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 24px;
             color: #5b2f49;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto 18px;
+            background: linear-gradient(135deg, #fffafc, #ffeef4);
+            border-bottom: 1px solid #f3d4e0;
+            padding: 14px 32px;
+            box-shadow: 0 6px 18px rgba(138, 47, 87, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 24px;
+        }
+
+        .dashboard .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard .right a {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(240, 75, 125, 0.15);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+        }
+
+        .dashboard .right a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(240, 75, 125, 0.18);
+            opacity: 0.98;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8a2f57;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff7aa2, #f04b7d);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            box-shadow: 0 6px 16px rgba(240, 75, 125, 0.25);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-left: 18px;
+        }
+
+        .nav-links a {
+            color: #8a2f57;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(240, 75, 125, 0.06);
+            color: #f04b7d;
+        }
+
+        .nav-links a.active {
+            background: rgba(240, 75, 125, 0.1);
+            color: #f04b7d;
         }
 
         .notebook {
@@ -74,6 +163,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 22px 24px 12px;
+            position: relative;
+            z-index: 2;
         }
 
         .logo {
@@ -199,59 +290,6 @@
             box-shadow: none;
         }
 
-        .side-action {
-            position: fixed;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: auto;
-            min-width: 120px;
-            height: 56px;
-            border-radius: 32px;
-            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
-            color: #9e214e;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 0 14px;
-            text-decoration: none;
-            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.65);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            animation: fadeIn 0.6s ease both;
-            z-index: 1000;
-            font-weight: 700;
-        }
-
-        .side-action:hover {
-            transform: translateY(-50%) scale(1.08);
-            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
-            background: linear-gradient(135deg, #ffd2de, #ff9ec1);
-        }
-
-        .side-action span {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .side-action span:first-child {
-            font-size: 1.6rem;
-        }
-
-        .side-action .arrow-label {
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .notes-panel {
             display: flex;
             flex-direction: column;
@@ -371,6 +409,7 @@
             cursor: pointer;
             transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
             text-align: left;
+            width: 100%;
         }
 
         .note-card:hover {
@@ -404,6 +443,7 @@
             gap: 8px;
             color: #9b426f;
             font-size: 0.9rem;
+            margin-top: 10px;
         }
 
         /* Delete button styles */
@@ -422,6 +462,7 @@
             transition: all 0.25s ease;
             box-shadow: 0 4px 14px rgba(184, 58, 74, 0.1);
             z-index: 15;
+            font-family: inherit;
         }
 
         .delete-btn:hover {
@@ -434,6 +475,192 @@
         .delete-btn .delete-icon {
             font-size: 1.05rem;
             line-height: 1;
+        }
+
+        /* Doodle button styles */
+        .mode-btn-fixed {
+            position: fixed;
+            left: 16px;
+            top: 100px;
+            width: auto;
+            min-width: 120px;
+            height: 56px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, #fffbfd, #ffeef4);
+            color: #8b2d57;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 14px;
+            text-decoration: none;
+            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.12);
+            border: 1px solid rgba(220, 148, 184, 0.4);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            z-index: 1000;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mode-btn-fixed:hover {
+            transform: scale(1.08);
+            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.2);
+            background: linear-gradient(135deg, #ffeef4, #ffd6e7);
+            border-color: rgba(220, 148, 184, 0.6);
+        }
+
+        .mode-btn-fixed.active {
+            background: linear-gradient(135deg, #ffd6e7, #fb9aba);
+            color: #8a2f57;
+            border-color: rgba(138, 47, 87, 0.25);
+            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
+        }
+
+        .doodle-toolbar {
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(220, 148, 184, 0.5);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(117, 40, 71, 0.12);
+            z-index: 1000;
+            position: fixed;
+            left: 16px;
+            top: 166px;
+            width: 130px;
+        }
+
+        .doodle-toolbar.visible {
+            display: flex;
+        }
+
+        .doodle-toolbar .toolbar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            width: 100%;
+            border-bottom: 1px solid rgba(220, 148, 184, 0.25);
+            padding-bottom: 12px;
+        }
+
+        .doodle-toolbar .toolbar-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .color-palette-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.15);
+        }
+
+        .color-dot.active {
+            border-color: #8a2f57;
+            transform: scale(1.1);
+        }
+
+        .brush-size {
+            background: #fff;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            color: #8b2d57;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .brush-size:hover {
+            background: #fff0f5;
+            border-color: #c95d8d;
+        }
+
+        .brush-size.active {
+            background: #8b2d57;
+            color: #fff;
+            border-color: #8b2d57;
+        }
+
+        .tool-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .tool-btn {
+            background: #fff;
+            border: 1.5px solid rgba(200, 130, 170, 0.4);
+            color: #8b2d57;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .tool-btn:hover {
+            background: #fff0f5;
+            border-color: #c95d8d;
+        }
+
+        .tool-btn.active {
+            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
+            border-color: rgba(138, 47, 87, 0.25);
+            color: #9e214e;
+        }
+
+        .clear-btn-doodle {
+            background: #fff5f5;
+            border-color: rgba(200, 60, 80, 0.2);
+            color: #b83a4a;
+        }
+
+        .clear-btn-doodle:hover {
+            background: #ffe0e0;
+            border-color: rgba(200, 60, 80, 0.4);
+        }
+
+        .doodle-toolbar label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #8b2d57;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* Clickable elements override for doodle mode click-throughs */
+        .mode-btn-fixed, .delete-btn, .nav-button, .doodle-toolbar, .top-bar, .dashboard,
+        .mode-btn-fixed *, .delete-btn *, .nav-button *, .doodle-toolbar *, .top-bar *, .dashboard * {
+            pointer-events: auto !important;
         }
 
         /* Delete confirmation modal */
@@ -504,6 +731,7 @@
             font-size: 0.92rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            font-family: inherit;
         }
 
         .modal-cancel-btn:hover {
@@ -522,208 +750,13 @@
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 4px 14px rgba(212, 57, 78, 0.3);
+            font-family: inherit;
         }
 
         .modal-delete-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 18px rgba(212, 57, 78, 0.4);
         }
-
-        /* Doodle button styles */
-        .mode-btn-fixed {
-            position: fixed;
-            left: 16px;
-            top: 24px;
-            width: auto;
-            min-width: 120px;
-            height: 56px;
-            border-radius: 32px;
-            background: linear-gradient(135deg, #fffbfd, #ffeef4);
-            color: #8b2d57;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 0 14px;
-            text-decoration: none;
-            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.12);
-            border: 1px solid rgba(220, 148, 184, 0.4);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            animation: fadeIn 0.6s ease both;
-            z-index: 1000;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .mode-btn-fixed:hover {
-            transform: scale(1.08);
-            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.2);
-            background: linear-gradient(135deg, #ffeef4, #ffd6e7);
-            border-color: rgba(220, 148, 184, 0.6);
-        }
-
-        .mode-btn-fixed.active {
-            background: linear-gradient(135deg, #ffd6e7, #fb9aba);
-            color: #8a2f57;
-            border-color: rgba(138, 47, 87, 0.25);
-            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
-        }
-
-        .doodle-toolbar {
-            display: none;
-            flex-direction: column;
-            gap: 14px;
-            align-items: flex-start;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(220, 148, 184, 0.5);
-            border-radius: 20px;
-            padding: 16px;
-            box-shadow: 0 10px 30px rgba(117, 40, 71, 0.12);
-            z-index: 1000;
-            position: fixed;
-            left: 16px;
-            top: 90px;
-            width: 130px;
-        }
-
-        .doodle-toolbar.visible {
-            display: flex;
-        }
-
-        /* Clickable elements override for doodle mode click-throughs */
-        .mode-btn-fixed, .delete-btn, .nav-button, .doodle-toolbar, .top-bar, .side-action,
-        .mode-btn-fixed *, .delete-btn *, .nav-button *, .doodle-toolbar *, .top-bar *, .side-action * {
-            pointer-events: auto !important;
-        }
-
-        .toolbar-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
-            width: 100%;
-            border-bottom: 1px solid rgba(220, 148, 184, 0.25);
-            padding-bottom: 12px;
-        }
-
-        .toolbar-group:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .color-palette-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            width: 100%;
-        }
-
-        .tool-btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-        }
-
-        .tool-btn-group .tool-btn {
-            width: 100%;
-            text-align: center;
-        }
-
-        .toolbar-group label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #8b2d57;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-        }
-
-        .color-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .color-dot:hover {
-            transform: scale(1.15);
-        }
-
-        .color-dot.active {
-            border-color: #8a2f57;
-            transform: scale(1.1);
-        }
-
-        .brush-size {
-            background: #fff;
-            border: 1.5px solid rgba(200, 130, 170, 0.4);
-            color: #8b2d57;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            box-shadow: none;
-        }
-
-        .brush-size:hover {
-            background: #fff0f5;
-            border-color: #c95d8d;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .brush-size.active {
-            background: #8b2d57;
-            color: #fff;
-            border-color: #8b2d57;
-        }
-
-        .tool-btn {
-            background: #fff;
-            border: 1.5px solid rgba(200, 130, 170, 0.4);
-            color: #8b2d57;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: none;
-        }
-
-        .tool-btn:hover {
-            background: #fff0f5;
-            border-color: #c95d8d;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .tool-btn.active {
-            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
-            border-color: rgba(138, 47, 87, 0.25);
-            color: #9e214e;
-        }
-
-        .clear-btn-doodle {
-            background: #fff5f5;
-            border-color: rgba(200, 60, 80, 0.2);
-            color: #b83a4a;
-        }
-
-        .clear-btn-doodle:hover {
-            background: #ffe0e0;
-            border-color: rgba(200, 60, 80, 0.4);
-        }
-
 
         @media (max-width: 940px) {
             .notebook {
@@ -741,11 +774,23 @@
 
         @media (max-width: 640px) {
             body {
-                padding: 16px;
+                padding: 12px;
             }
+
+            .dashboard {
+                flex-direction: column;
+                gap: 12px;
+                padding: 14px 16px;
+            }
+            .dashboard .left { flex-wrap: wrap; }
+            .dashboard .nav-links { margin-left: 0; }
 
             .book-content {
                 padding: 0 18px 18px 110px;
+            }
+
+            .top-bar {
+                padding: 22px 18px 12px;
             }
 
             .notes-panel {
@@ -755,11 +800,25 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}" class="side-action">
-        <span>&#x2190;</span>
-        <span class="arrow-label">previous page</span>
-    </a>
-    <button class="mode-btn-fixed" id="mode-btn" style="display:none;" type="button">
+    <div class="dashboard">
+        <div class="left">
+            <a href="{% url 'home' %}" class="brand">
+                <div class="brand-mark">D</div>
+                <span>My Diary</span>
+            </a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="{% url 'home' %}#write" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Write diary</a>
+                <a href="{% url 'side_page' %}" class="{% if request.resolver_match.url_name == 'side_page' %}active{% endif %}">View diary</a>
+                <a href="{% url 'todo_page' %}" class="{% if request.resolver_match.url_name == 'todo_page' %}active{% endif %}">To-Do List</a>
+            </nav>
+        </div>
+        <div class="right">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <!-- Floating Draw Toggle Mode Button -->
+    <button class="mode-btn-fixed" id="mode-btn" style="display:none;" type="button" title="Toggle Doodle Mode">
         <span class="mode-icon">✏️</span>
         <span>Doodle Mode</span>
     </button>
@@ -794,8 +853,10 @@
     </div>
 
     <div class="notebook">
+        <!-- Notebook Book Panel -->
         <section class="paper">
             <canvas id="doodle-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none;"></canvas>
+            
             <div class="top-bar">
                 <div class="logo">
                     Notebook
@@ -828,6 +889,7 @@
             </div>
         </section>
 
+        <!-- Sidebar Date Selector -->
         <aside class="notes-panel">
             <h2>Dates</h2>
 

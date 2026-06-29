@@ -32,13 +32,6 @@
             backdrop-filter: blur(8px);
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
         .brand {
             display: flex;
             align-items: center;
@@ -46,6 +39,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: #8a2f57;
+            text-decoration: none;
         }
 
         .brand-mark {
@@ -61,11 +55,6 @@
             box-shadow: 0 6px 16px rgba(240, 75, 125, 0.25);
         }
 
-        .top-bar a {
-            color: #8a2f57;
-            text-decoration: none;
-            font-weight: 600;
-        }
         .nav-links {
             display: flex;
             gap: 16px;
@@ -87,30 +76,16 @@
             color: #f04b7d;
         }
 
-        .hero {
-            display: block;
-            gap: 18px;
-            margin-bottom: 24px;
+        .nav-links a.active {
+            background: rgba(240, 75, 125, 0.1);
+            color: #f04b7d;
         }
 
-        .hero-card,
         .panel {
             background: #fffafc;
             border: 1px solid #f2d0de;
             border-radius: 18px;
             padding: 20px;
-        }
-
-        .hero-card h1 {
-            margin: 0 0 10px;
-            font-size: 1.8rem;
-            color: #8a2f57;
-        }
-
-        .hero-card p {
-            margin: 0;
-            line-height: 1.6;
-            color: #8b5670;
         }
 
         .grid {
@@ -235,54 +210,6 @@
             border: 1px solid #f4c9d9;
         }
 
-        .entry-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .entry-list li {
-            background: #fff;
-            border: 1px solid #f3d4e0;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 10px;
-        }
-
-        pre {
-            white-space: pre-wrap;
-            word-break: break-word;
-            margin: 8px 0 0;
-            font-family: inherit;
-        }
-    
-
-        .arrow-link {
-            position: fixed;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 70px;
-            height: 70px;
-            border-radius: 24px;
-            background: linear-gradient(135deg, #ffd6e7, #ffb0cc);
-            color: #9e214e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: 0 18px 32px rgba(238, 112, 160, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.65);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            z-index: 10;
-        }
-
-        .arrow-link:hover {
-            transform: translateY(-50%) scale(1.08);
-            box-shadow: 0 22px 38px rgba(238, 112, 160, 0.3);
-            background: linear-gradient(135deg, #ffd2de, #ff9ec1);
-        }
-
         .arrow-link {
             position: fixed;
             right: 18px;
@@ -330,7 +257,6 @@
         }
 
         @media (max-width: 760px) {
-            .hero,
             .grid {
                 grid-template-columns: 1fr;
             }
@@ -345,14 +271,14 @@
 <body>
     <div class="dashboard">
         <div class="left">
-            <div class="brand">
+            <a href="{% url 'home' %}" class="brand">
                 <div class="brand-mark">D</div>
                 <span>My Diary</span>
-            </div>
+            </a>
             <nav class="nav-links" aria-label="Main navigation">
-                <a href="#write">Write diary</a>
-                <a href="{% url 'side_page' %}">View diary</a>
-                <a href="{% url 'todo_page' %}">To-Do List</a>
+                <a href="{% url 'home' %}#write" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Write diary</a>
+                <a href="{% url 'side_page' %}" class="{% if request.resolver_match.url_name == 'side_page' %}active{% endif %}">View diary</a>
+                <a href="{% url 'todo_page' %}" class="{% if request.resolver_match.url_name == 'todo_page' %}active{% endif %}">To-Do List</a>
             </nav>
         </div>
         <div class="right">
